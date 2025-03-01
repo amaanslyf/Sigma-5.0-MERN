@@ -1,5 +1,9 @@
+/*universal selector*/
 *{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h1::first-letter{
+    color: black;
 }
 h1,h3{
     color:#b92b27
@@ -7,12 +11,55 @@ h1,h3{
 #login{
     background-color: white;
 }
+/*element selector*/
 #signup{
     background-color: #b92b27;
 
 }
+/*class selector*/
 .upvote{
     background-color: green;
     color:aliceblue
+    
+}
+/* descendent selector*/
+p a{
+    color:purple;
+    background-color: yellow;
+}
+/* descendent selector*/
+nav ul li a{
+    color: darkblue;
+}
+/*sibling combinator*/
+p+h3{
+    text-decoration: underline;
+}
+/*sibling combinator*/
+.upvote+button{
+    background-color: aqua;
+    color: black;
+}
+/*   child combinator*/
+div>input{    
+    background-color:antiquewhite;
+}       
+/*attribute selector*/
+input[type="password"]{
+    color:red;
+}
+/*attribute selector*/
+input[type="text"]{
+    color:blue;
+}
+button:hover{
+    background-color: black;
+    color: white;
+}
+h3:hover{
+    text-decoration: none;
+}
+button:active{
+    background-color: palevioletred;
     
 }
