@@ -1,0 +1,19 @@
+h2 {
+    display: inline;
+    background-color: aqua;
+}
+
+/*Although the span is inline element it acts as block as display property is defined an d same for heading also*/
+span {
+    display: block;
+    background-color: aquamarine;
+}
+div{
+    height: 100px;
+    width:100px;
+    margin:10px;
+    padding: 2px;
+    border:1px solid black;
+    background-color: red;
+    display: inline-block;
+}
