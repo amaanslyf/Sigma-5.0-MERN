@@ -1,0 +1,48 @@
+div{
+    background-color: red;
+    height: 100px;
+    width: 100px;
+    margin: 10px;
+    transition:margin-left 7s ease-in-out 0.5s;
+}
+div:hover{
+    margin-left: 1500px;
+}
+
+#one{
+    transform:rotate(30deg);
+}
+#two{
+    transform:scale(0.5);
+}
+#three{
+    transform:scale(0.5,2);
+}
+#four{
+    transform: translate(50px,100px);
+}
+#five{
+    transform:skew(50deg,20deg);
+}
+#six{
+    box-shadow: 2px 2px 20px black;
+}
+#seven{
+    background-image: url("bg.jpg");
+    background-size: cover;
+    height: 500px;
+    width: 500px;
+}
+#eight{
+    background-image: url("bg.jpg");
+    background-size: contain;
+    height: 500px;
+    width: 500px;
+}
+#nine{
+    background-image: url("bg.jpg");
+    background-size: auto;
+    height: 400px;
+    width: 500px;
+
+}

@@ -1,0 +1,9 @@
+div {
+    background-color: rgba(255, 0, 120, 0.7);/*only opacity of background color is altered*/
+}
+
+/*opacity of whole div element is altered along with elements inside it*/
+#opacity {
+    background-color: aquamarine;
+    opacity: 0.5;
+}
