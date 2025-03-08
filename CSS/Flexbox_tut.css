@@ -1,0 +1,21 @@
+#Container{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    margin:  auto;
+    background-color: azure;
+    width:80%;
+    height: 300px;
+    justify-content: center;
+    
+}
+h1{
+    text-align: center;
+}
+#Container div{
+    text-align: center;
+    height: auto;
+    width: auto;
+    font-size: 1.5em;
+
+}
