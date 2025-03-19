@@ -1,7 +1,7 @@
 console.log("hello");
 let number1=20;
 let number2=10;
-console.log(`The total is ${a+b}`);
+console.log(`The total is ${number1+number2}`);
 
 // Arithmetic Operators
 let a = 10, b = 5;
