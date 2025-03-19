@@ -58,3 +58,21 @@ let studentMarks1 = 87;  // Change this value to test different cases
         }
     }
 
+//switch case 
+let color = "Red";  // Change this value to test
+    switch (color.toLowerCase()) {
+        case "red":
+            console.log("STOP! 🚦");
+            break;
+        case "yellow":
+            console.log("READY TO MOVE! ⚠️");
+            break;
+        case "green":
+            console.log("GO! ✅");
+            break;
+        default:
+            console.log("Invalid color! Please enter Red, Yellow, or Green.");
+    }
+
+
+
