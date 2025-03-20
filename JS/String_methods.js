@@ -1,0 +1,15 @@
+let str ="Apnacollege";
+console.log(str.length); // 12
+console.log(str.toUpperCase()); // APNACOLLEGE
+console.log(str.toLowerCase()); // apnacollege
+console.log(str.charAt(0)); // A
+console.log(str.indexOf("a")); // 0
+console.log(str.indexOf("A")); // 0
+console.log(str.lastIndexOf("A")); // 0
+console.log(str.slice(0,4)); // Apna
+console.log(str.slice(4)); // college
+console.log(str.slice(-4)); // ege
+console.log(str.slice(0,4).toUpperCase()); // APNA
+console.log(str.trim()); // Apnacollege
+console.log(str.replace("Apna","Hamara")); // Hamaracollege
+console.log(str.repeat(2)); // ApnacollegeApnacollege
