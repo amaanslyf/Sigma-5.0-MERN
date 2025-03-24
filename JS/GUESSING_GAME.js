@@ -1,21 +1,41 @@
-const maxNum = prompt("Enter the maximum number for the guessing game");
-const randomNum = Math.floor(Math.random() * maxNum) + 1;
-let guess = prompt("Enter your first guess");
+let maxNum, randomNum;
 
-while (true) {
-    if (guess.toLowerCase() === "quit") {
-        break;
+function startGame() {
+    maxNum = document.getElementById("maxNum").value;
+    if (!maxNum || maxNum <= 0) {
+        alert("Please enter a valid max number.");
+        return;
     }
+    randomNum = Math.floor(Math.random() * maxNum) + 1;
+    document.getElementById("gameArea").style.display = "block";
+    document.getElementById("message").innerText = "";
+}
+
+function checkGuess() {
+    let guess = document.getElementById("guessInput").value;
     
-    guess = Number(guess); // Convert input to a number
+    if (guess.toLowerCase() === "quit") {
+        quitGame();
+        return;
+    }
+
+    guess = Number(guess);
+    
+    if (isNaN(guess)) {
+        document.getElementById("message").innerText = "Please enter a valid number!";
+        return;
+    }
 
     if (guess === randomNum) {
-        console.log("CONGRATS YOU WIN!");
-        break;
+        document.getElementById("message").innerText = "🎉 CONGRATS! You guessed it!";
     } else if (guess > randomNum) {
-        guess = prompt("Too high, try again");
+        document.getElementById("message").innerText = "📉 Too high, try again!";
     } else {
-        guess = prompt("Too low, try again");
+        document.getElementById("message").innerText = "📈 Too low, try again!";
     }
 }
-console.log("GAME OVER");
+
+function quitGame() {
+    document.getElementById("message").innerText = "Game over! You quit.";
+    document.getElementById("gameArea").style.display = "none";
+}
