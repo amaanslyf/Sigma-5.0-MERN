@@ -48,3 +48,14 @@ const student={
 }
 console.log(student.getName());
 console.log(student.getage());
+
+
+
+
+
+
+let idx=setInterval(() => {
+    console.log("Hello");
+},2000);
+
+setTimeout(() => {clearInterval(idx)},10000);
