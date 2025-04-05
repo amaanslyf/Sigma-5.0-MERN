@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Bubbling Example with stopPropagation</title>
+<style>
+  #outer {
+    width: 300px;
+    height: 200px;
+    background-color: lightblue;
+    padding: 20px;
+  }
+
+  #inner {
+    width: 150px;
+    height: 100px;
+    background-color: lightgreen;
+    padding: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div id="outer">
+  Outer Div
+  <div id="inner">
+    Inner Div
+    <button id="myButton">Click Me</button>
+  </div>
+</div>
+
+<script src="Event_bubbling.js"></script>
+
+</body>
+</html>
