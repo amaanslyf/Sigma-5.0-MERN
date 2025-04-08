@@ -11,18 +11,18 @@ function saveToDb(data){
     });
     }
     saveToDb("Aman")
-    .then(()=>{
+    .then((result)=>{
         console.log("Promise1 resolved successfully!");
         return saveToDb("Aman2");
         
     })
-    .then(()=>{
+    .then((result)=>{
         console.log("Promise2 resolved successfully!");
         return saveToDb("Aman3");
     })
-    .then(()=>{
+    .then((result)=>{
         console.log("Promise3 resolved successfully!");
     })
-    .catch(()=>{
+    .catch((error)=>{
         console.log("Promise rejected with error!");
     });

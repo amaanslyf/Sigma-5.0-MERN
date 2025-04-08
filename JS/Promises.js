@@ -11,9 +11,11 @@ function saveToDB(data){
 }
 
 saveToDB("Aman" )
-    .then(()=>{
+    .then((result)=>{
         console.log("Promise resolved successfully!");
+        console.log(result);
     })
-    .catch(()=>{
+    .catch((error)=>{
         console.log("Promise rejected with error!");
+        console.log(error);
     });
