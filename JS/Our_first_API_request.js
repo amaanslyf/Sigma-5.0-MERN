@@ -21,19 +21,40 @@
 
 //using fetch with async await
 
-let url = "https://catfact.ninja/fact";
+// let url = "https://catfact.ninja/fact";
 
-async function getCatFact() {
-    try {
-        let res = await fetch(url);
-        let data = await res.json(); //this res.json() returns a promise, which converts the response to JSON
-        console.log("data", data.fact);
+// async function getCatFact() {
+//     try {
+//         let res = await fetch(url);
+//         let data = await res.json(); //this res.json() returns a promise, which converts the response to JSON
+//         console.log("data", data.fact);
         
-        let res2 = await fetch(url);
-        let data2= await res.json();
-        console.log("data2", data2.fact);
+//         let res2 = await fetch(url);
+//         let data2= await res.json();
+//         console.log("data2", data2.fact);
+//     }
+//     catch (error) {
+//         console.log("Error:", error);
+//     }
+// }
+
+//using axios
+
+let btn=document.querySelector("#get-fact");
+let url = "https://catfact.ninja/fact";
+btn.addEventListener("click", async ()=>{
+    let facts= await getCatFact();
+    console.log(facts);
+    let p=document.querySelector("#result");
+    p.innerText=facts;
+})
+async function getCatFact() {
+      try {
+      let res = await axios.get(url);
+       return res. data.fact;
+      }
+      catch (error) {
+            console.log("Error:", error);
+            return "No fact Found";
+      }
     }
-    catch (error) {
-        console.log("Error:", error);
-    }
-}
