@@ -1,0 +1,16 @@
+{
+  "name": "own",
+  "version": "1.0.0",
+  "description": "Here is my Node.js learning process",
+  "repository": {
+    "type": "git",
+    "url": "Node.js"
+  },
+  "license": "ISC",
+  "author": "aman",
+  "type": "module",
+  "main": "import1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
