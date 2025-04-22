@@ -11,3 +11,16 @@ app.use((req,res)=>{
     console.log("response sent");
 });
 
+//using path parameters
+app.get('/:username/:id',(req,res)=>{
+    res.send(`username: ${req.params.username} and id: ${req.params.id}`);
+});
+
+//Query Strings
+app.get('/Search',(req,res)=>{
+let q=req.query;
+if(!q.q){
+    res.send("Please provide a search query");
+}
+res.send(`Search query: ${q.q}`);
+});
