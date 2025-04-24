@@ -12,8 +12,22 @@ app.get('/', (req, res) => {
 });
 
 app.get('/Rolldice', (req, res) => {
-    let diceval= Math.floor(Math.random() * 6) + 1; // Random number between 1 and 6
-    res.render('Rolldice.ejs',{diceval}); // Pass the random number to the EJS template
+    let diceval = Math.floor(Math.random() * 6) + 1; // Random number between 1 and 6
+    res.render('Rolldice.ejs', { diceval }); // Pass the random number to the EJS template
+});
+app.get('/ig/:username', (req, res) => {
+    const instadata=require('./data.json'); // Import the data from the JSON file
+
+
+    let {username}=req.params; // Extract the username from the URL parameters
+    const data =instadata[username]; // Access the data for the specified username
+    console.log(data); // Log the data for the specified username to the console
+    if (!data) {
+        res.render('error.ejs'); // Render an error page if the username is not found
+    }else{
+    res.render('Instagram.ejs',{data}); // Pass the username to the EJS template
+    }
+
 });
 app.listen(port, () => {
     console.log(`Server is  running on port ${port}`);
