@@ -11,6 +11,10 @@ app.get('/', (req, res) => {
     res.render('home.ejs');
 });
 
+app.get('/Rolldice', (req, res) => {
+    let diceval= Math.floor(Math.random() * 6) + 1; // Random number between 1 and 6
+    res.render('Rolldice.ejs',{diceval}); // Pass the random number to the EJS template
+});
 app.listen(port, () => {
     console.log(`Server is  running on port ${port}`);
 });
