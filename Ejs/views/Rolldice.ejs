@@ -8,6 +8,8 @@
 <body>
     <h1>RollDice</h1>   
     <h2>Dice gave value <%=diceval %></h2>
-    
+    <% if(diceval == 6) { %>
+        <h2>Congratulations! You rolled a 6!</h2>
+    <% } %>
 </body>
 </html>
