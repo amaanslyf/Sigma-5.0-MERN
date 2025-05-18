@@ -1,5 +1,6 @@
 const express= require("express");
 const app= express();
+const ExpressError= require("./ExpressError");
 
 app.listen(8080,()=>{
     console.log("Server is running on port 8080");
@@ -39,13 +40,19 @@ app.listen(8080,()=>{
 
 //alternate way
 
+
 const checktoken=(req, res, next)=>{
     let {token}= req.query;
     if(token==="12345"){
         next();
     }
-    res.send("Unauthorized");
+    throw new ExpressError(401,"Unauthorized");
 };
 app.use("/api", checktoken, (req, res)=>{
     res.send("Hello from the api page");
+});
+
+app.use((err, req, res, next)=>{
+    let {status, message}= err;
+    res.status(status).send(message);
 });
