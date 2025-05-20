@@ -59,8 +59,9 @@ app.get('/listings/:id',async(req,res)=>{
 });
 
 //create route
-app.post('/listings',async(req,res)=>{
-    const {title,description,image,price,location,country}=req.body;
+app.post('/listings',async(req,res,next)=>{
+    try{
+        const {title,description,image,price,location,country}=req.body;
     const newListing=new Listing({
         title,
         description,
@@ -71,6 +72,10 @@ app.post('/listings',async(req,res)=>{
     });
     await newListing.save()
     res.redirect('/listings');
+    }
+    catch(err){
+        next(err);
+    }
 });
 
 //edit route
@@ -100,4 +105,9 @@ app.delete('/listings/:id',async(req,res)=>{
     let {id}=req.params;
     await Listing.findByIdAndDelete(id);
     res.redirect('/listings');
+});
+
+//error handling middleware
+app.use((err,req,res,next)=>{
+    res.send("Something went wrong");
 });
