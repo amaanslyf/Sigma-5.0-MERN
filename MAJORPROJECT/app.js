@@ -107,13 +107,13 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
 }));
 
 
-//for all routes that are not defined
-app.all('*', (req, res, next) => {
-    next(new ExpressError("Page Not Found", 404));
-});
-
-// //error handling middleware
-// app.use((err, req, res, next) => {
-//     let { statusCode = 500, message = "Something went wrong" } = err;
-//     res.status(statusCode).send(message);
+// //for all routes that are not defined
+// app.all('*', (req, res, next) => {
+//     next(new ExpressError(404,"Page not found"));
 // });
+
+//error handling middleware
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = "Something went wrong" } = err;
+    res.status(statusCode).send(message);
+});
