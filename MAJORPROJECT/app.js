@@ -62,6 +62,9 @@ app.get('/listings/:id', wrapAsync(async (req, res) => {
 
 //create route
 app.post('/listings', wrapAsync(async (req, res, next) => {
+    if (!req.body.listing) {
+        throw new ExpressError(400,"Invalid Listing Data");
+    }
 
     const { title, description, image, price, location, country } = req.body;
     const newListing = new Listing({
@@ -86,6 +89,9 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 
 //update route
 app.put('/listings/:id', wrapAsync(async (req, res) => {
+     if (!req.body.listing) {
+        throw new ExpressError(400,"Invalid Listing Data");
+    }
     let { id } = req.params;
     const { title, description, image, price, location, country } = req.body;
     const listing = await Listing.findByIdAndUpdate(id, {
@@ -109,7 +115,7 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
 
 // //for all routes that are not defined
 // app.all('*', (req, res, next) => {
-//     next(new ExpressError(404,"Page not found"));
+//     next( new ExpressError(404,"Page not found"));
 // });
 
 //error handling middleware
