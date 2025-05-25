@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const ExpressError = require('./utils/ExpressError.js');
+const { listingSchema } = require('./schema.js');
 
 
 app.set('view engine', 'ejs');
@@ -60,12 +61,23 @@ app.get('/listings/:id', wrapAsync(async (req, res) => {
     res.render("listings/show.ejs", { listing });
 }));
 
-//create route
-app.post('/listings', wrapAsync(async (req, res, next) => {
-    if (!req.body.listing) {
-        throw new ExpressError(400,"Invalid Listing Data");
+//validatation for listing 
+const validateListing = (req, res, next) => {
+    let {error} = listingSchema.validate(req.body);
+
+    if (error) {
+        let errMsg= error.details.map(el => el.message).join(',');
+        throw new ExpressError(400, errMsg);
+    }else {
+        next();
     }
 
+};
+    
+
+//create route
+app.post('/listings',validateListing, wrapAsync(async (req, res, next) => {
+    
     const { title, description, image, price, location, country } = req.body;
     const newListing = new Listing({
         title,
@@ -75,6 +87,7 @@ app.post('/listings', wrapAsync(async (req, res, next) => {
         location,
         country
     });
+
     await newListing.save()
     res.redirect('/listings');
 
@@ -88,10 +101,8 @@ app.get('/listings/:id/edit', wrapAsync(async (req, res) => {
 }));
 
 //update route
-app.put('/listings/:id', wrapAsync(async (req, res) => {
-     if (!req.body.listing) {
-        throw new ExpressError(400,"Invalid Listing Data");
-    }
+app.put('/listings/:id',validateListing, wrapAsync(async (req, res) => {
+    
     let { id } = req.params;
     const { title, description, image, price, location, country } = req.body;
     const listing = await Listing.findByIdAndUpdate(id, {
@@ -113,14 +124,17 @@ app.delete('/listings/:id', wrapAsync(async (req, res) => {
 }));
 
 
-// //for all routes that are not defined
+
+
+
+
+// // For all routes that are not defined
 // app.all('*', (req, res, next) => {
-//     next( new ExpressError(404,"Page not found"));
+//     next(new ExpressError(404, "Page not found"));
 // });
 
-//error handling middleware
+// Error handling middleware
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong" } = err;
-    res.status(statusCode).res.render("error.ejs",{message});
-    // res.status(statusCode).send(message);
+    res.status(statusCode).render("error.ejs", { message });
 });
