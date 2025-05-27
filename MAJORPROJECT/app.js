@@ -5,6 +5,8 @@ const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 
 
@@ -23,6 +25,24 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, '/public')));
+
+
+//session configuration
+// Using express-session for session management
+const sessionOptions = {
+    secret:"mysupersecretcode",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24, // 1 day
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        httpOnly: true, // Helps prevent XSS attacks
+    },
+};
+// Initialize session middleware
+app.use(session(sessionOptions));
+// Using connect-flash for flash messages
+app.use(flash());
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -43,6 +63,12 @@ app.get('/', (req, res) => {
     res.send("Hello i m root");
 });
 
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    
+    next();
+});
 
 //Using the listings router for all routes starting with /listings
 app.use('/listings', listings);
