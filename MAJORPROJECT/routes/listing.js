@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const wrapAsync = require('../utils/wrapAsync.js');
 const Listing = require('../models/listing');
-const { isLoggedIn , isOwner, validateListing} = require('../middleware.js');
+const { isLoggedIn, isOwner, validateListing } = require('../middleware.js');
 
 
 
@@ -20,7 +20,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 //show route
 router.get('/:id', wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate('reviews').populate('owner');
+    const listing = await Listing.findById(id).populate({ path: 'reviews', populate: { path: 'author' } }).populate('owner');
     if (!listing) {
         req.flash('error', 'Listing not found');
         return res.redirect('/listings');
