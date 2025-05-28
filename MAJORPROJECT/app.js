@@ -7,13 +7,18 @@ const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user.js');
 
 
 
 //using express router for listing routes
-const listings = require('./routes/listing.js');
+const listingRouter = require('./routes/listing.js');
 //using express router for review routes
-const reviews = require('./routes/review.js');
+const reviewRouter = require('./routes/review.js');
+//using express router for user routes
+const userRouter = require('./routes/user.js');
 
 
 
@@ -44,6 +49,18 @@ app.use(session(sessionOptions));
 // Using connect-flash for flash messages
 app.use(flash());
 
+// Passport.js configuration for user authentication
+// Initialize Passport.js
+app.use(passport.initialize());
+// Initialize Passport.js session management
+app.use(passport.session());
+// Configure Passport.js to use the LocalStrategy for authentication
+passport.use(new LocalStrategy(User.authenticate()));
+// Serialize and deserialize user instances to support persistent login sessions
+passport.serializeUser(User.serializeUser()); //stores user id in session
+passport.deserializeUser(User.deserializeUser()); //retrieves user from session using id for subsequent requests
+
+
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 main()
@@ -63,7 +80,7 @@ app.get('/', (req, res) => {
     res.send("Hello i m root");
 });
 
-
+// Middleware to set flash messages in res.locals for use in views
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -71,10 +88,13 @@ app.use((req, res, next) => {
     next();
 });
 
+
 //Using the listings router for all routes starting with /listings
-app.use('/listings', listings);
+app.use('/listings', listingRouter);
 //Using the reviews router for all routes starting with /listings/:id/reviews
-app.use('/listings/:id/reviews', reviews);
+app.use('/listings/:id/reviews', reviewRouter);
+//Using the user router for all routes starting with /users
+app.use('/', userRouter);
 
 
 // // For all routes that are not defined
@@ -91,3 +111,21 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
     console.log("Server is running on port 8080");
 });
+
+
+
+
+
+
+// app.get("/demouser", async (req, res) => {
+//     let fakeUser= new User({
+//         email:"student@gmail.com",
+//         username: "student"
+//     });
+//     // Register the user using passport-local-mongoose
+//     // The register method will hash the password and save the user to the database
+//     let registeredUser=await User.register(fakeUser,"helloworld" );
+//     res.send(registeredUser);
+// });
+    
+    
