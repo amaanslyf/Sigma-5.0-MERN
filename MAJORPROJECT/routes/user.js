@@ -41,7 +41,7 @@ router.get('/login', (req, res) => {
 
 //Post route for login form
 router.post('/login',saveRedirectUrl, passport.authenticate("local", { failureRedirect: "/login", failureFlash: true }), (req, res) => {
-    req.flash('success', 'Welcome back!');
+    req.flash('success', `Welcome back!${req.user.username}`);
     res.redirect(res.locals.redirectUrl || '/listings'); // Redirect to the saved URL or default to listings
 });
 
