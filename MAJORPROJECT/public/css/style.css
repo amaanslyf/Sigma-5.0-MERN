@@ -1,26 +1,27 @@
-body{
-    
+body {
+
     font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
-  
+
+
 }
-.container{
+
+.container {
     flex: 1;
 }
 
 /*button in new listing form*/
-.add-btn{
-    background-color:#fe424d !important;
-    border:none !important;
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
 }
 
 /*button in edit listing form*/
-.edit-btn{
-    background-color:#fe424d !important;
-    border:none !important;
+.edit-btn {
+    background-color: #fe424d !important;
+    border: none !important;
 }
 
 .navbar {
@@ -48,15 +49,17 @@ body{
     text-decoration: underline;
 }
 
-.f-info-links , .f-info-socials , .f-info-brand{
+.f-info-links,
+.f-info-socials,
+.f-info-brand {
     width: 100%;
     vertical-align: middle;
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
- 
+
 
 .f-info-socials i {
     font-size: 1.2rem;
@@ -73,45 +76,52 @@ body{
     align-items: space-evenly;
 }
 
+
 /*cards*/
-.card{
-border:none !important;
-margin-bottom: 2rem;
+.card {
+    border: none !important;
+    margin-bottom: 2rem;
 }
 
-.card-img-top{
+.card-img-top {
     border-radius: 1rem !important;
     width: 100% !important;
     object-fit: cover !important;
 }
-.card-body{
+
+.card-body {
     padding: 0 !important;
 }
-.card-text p{
-    font-weight :400px !important;
+
+.card-text p {
+    font-weight: 400px !important;
 }
-.listing-link{
+
+.listing-link {
     text-decoration: none !important;
-    
+
 }
-.card-img-overlay{
-    opacity:0 ;
+
+.card-img-overlay {
+    opacity: 0;
 }
-.card-img-overlay:hover{
-    opacity:0.2;
+
+.card-img-overlay:hover {
+    opacity: 0.2;
     background-color: white;
 }
+
 /*image on show page*/
-.show-img{
+.show-img {
     height: 30vh;
 }
 
 /*buttons on show page*/
-.btns{
-    display:flex;
+.btns {
+    display: flex;
 }
 
-.show-card{
+.show-card {
     padding-left: 0;
     padding-right: 0;
 }
