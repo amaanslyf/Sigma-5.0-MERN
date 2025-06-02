@@ -55,7 +55,7 @@ module.exports.updateListing = async (req, res) => {
 
 
     const { title, description, image, price, location, country } = req.body.listing;
-    await Listing.findByIdAndUpdate(id, {
+    let listing=await Listing.findByIdAndUpdate(id, {
         title,
         description,
         image,
@@ -63,6 +63,12 @@ module.exports.updateListing = async (req, res) => {
         location,
         country
     });
+    if(typeof req.file!=='undefined'){
+    let url=req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename }; // Update the image field with the new uploaded file's path and filename
+    await listing.save();
+    }
     req.flash('success', 'Listing updated successfully!');
     res.redirect(`/listings/${id}`);
 }
