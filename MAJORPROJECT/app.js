@@ -83,9 +83,9 @@ async function main() {
 
 }
 
-app.get('/', (req, res) => {
-    res.send("Hello i m root");
-});
+// app.get('/', (req, res) => {
+//     res.send("Hello i m root");
+// });
 
 // Middleware to set flash messages in res.locals for use in views
 app.use((req, res, next) => {
