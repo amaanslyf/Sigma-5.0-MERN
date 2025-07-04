@@ -13,6 +13,7 @@ const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -38,11 +39,23 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, '/public')));
 
+const store=MongoStore.create({  //create a new instance of MongoStore
+    mongoUrl: dBUrl,
+    crypto: {                           //configure the crypto options
+     secret:process.env.SECRET,
+    },
+    touchAfter: 24 * 60 * 60           //update the session document in the database every 24 hours
+    });
+
+    store.on("error",()=>{            //handle any errors that occur during session store operations
+        console.log("Error in session store",error);
+    })
 
 //session configuration
 // Using express-session for session management
 const sessionOptions = {
-    secret:"mysupersecretcode",
+    store,
+    secret:process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -68,7 +81,8 @@ passport.serializeUser(User.serializeUser()); //stores user id in session
 passport.deserializeUser(User.deserializeUser()); //retrieves user from session using id for subsequent requests
 
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";  //This was localhost ip address and its url
+const dBUrl=process.env.ATLASDB_URL; //This is the mongodb atlas url, now we will use this for deployment
 
 main()
     .then(() => {
@@ -79,7 +93,7 @@ main()
     });
 
 async function main() {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dBUrl);
 
 }
 
