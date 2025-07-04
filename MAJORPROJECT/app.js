@@ -39,6 +39,22 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, '/public')));
 
+// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";  //This was localhost ip address and its url
+const dBUrl=process.env.ATLASDB_URL; //This is the mongodb atlas url, now we will use this for deployment
+
+main()
+    .then(() => {
+        console.log("Database connected");
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+async function main() {
+    await mongoose.connect(dBUrl);
+
+}
+
 const store=MongoStore.create({  //create a new instance of MongoStore
     mongoUrl: dBUrl,
     crypto: {                           //configure the crypto options
@@ -81,21 +97,7 @@ passport.serializeUser(User.serializeUser()); //stores user id in session
 passport.deserializeUser(User.deserializeUser()); //retrieves user from session using id for subsequent requests
 
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";  //This was localhost ip address and its url
-const dBUrl=process.env.ATLASDB_URL; //This is the mongodb atlas url, now we will use this for deployment
 
-main()
-    .then(() => {
-        console.log("Database connected");
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-async function main() {
-    await mongoose.connect(dBUrl);
-
-}
 
 // app.get('/', (req, res) => {
 //     res.send("Hello i m root");
