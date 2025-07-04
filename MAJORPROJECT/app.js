@@ -99,9 +99,9 @@ passport.deserializeUser(User.deserializeUser()); //retrieves user from session 
 
 
 
-app.get('/', (req, res) => {
-    res.redirect('/listings');
-});
+// app.get('/', (req, res) => {
+//     res.redirect('/listings');
+// });
 
 // Middleware to set flash messages in res.locals for use in views
 app.use((req, res, next) => {
